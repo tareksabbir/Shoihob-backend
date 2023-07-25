@@ -11,9 +11,8 @@ import { turfBookingDataSearchableFields } from './TurfBooking.constant'
 
 
 const createTurfBookingDataService = async (
-  payload: ITurfBookingData
+  payload: ITurfBookingData 
 ): Promise<{ success: boolean; message?: string; data?: ITurfBookingData }> => {
-  console.log(payload);
   const query = {
     selectedDate: payload.selectedDate,
     email: payload.email,

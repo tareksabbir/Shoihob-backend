@@ -1,6 +1,7 @@
 import express from 'express'
 import { TurfRoutes } from '../module/TurfDetails/TurfDetails.route'
 import { TurfBookingRoutes } from '../module/TurfBooking/TurfBooking.route'
+import { UserRoutes } from '../module/User/User.route'
 
 const router = express.Router()
 
@@ -12,6 +13,10 @@ const moduleRoutes = [
   {
     path: '/turf-booking',
     route: TurfBookingRoutes,
+  },
+  {
+    path: '/user',
+    route: UserRoutes,
   },
 ]
 

@@ -1,7 +1,5 @@
 import { Model } from 'mongoose'
 
-
-
 export type ITurfData = {
   turf_name: string
   address: string
@@ -10,11 +8,11 @@ export type ITurfData = {
   logo: string
   cover: string
   price: string
-  person: number[];
-  slots: string[];
+  person: number[]
+  slots: string[]
 }
 export type ITurfDataFilters = {
-    searchTerm?: string;
-  };
+  searchTerm?: string
+}
 
 export type TurfDataModel = Model<ITurfData, object>

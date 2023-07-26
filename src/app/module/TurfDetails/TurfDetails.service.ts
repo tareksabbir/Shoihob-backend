@@ -37,6 +37,7 @@ const getData = async (date: string): Promise<ITurfData[] | null> => {
         turf_name: 1,
         slots: 1,
         logo: 1,
+        price: 1,
         booked: {
           $map: {
             input: '$booked',
@@ -53,6 +54,7 @@ const getData = async (date: string): Promise<ITurfData[] | null> => {
         slots: {
           $setDifference: ['$slots', '$booked'],
         },
+        price: 1,
       },
     },
   ])

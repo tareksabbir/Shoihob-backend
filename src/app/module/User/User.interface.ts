@@ -14,7 +14,7 @@ export type IUserData = {
   about?: string
   facebook?: string
   insta?: string
-  blood?:string
+  blood?: string
 }
 
 export type IUserDataFilters = {

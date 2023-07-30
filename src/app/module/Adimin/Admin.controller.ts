@@ -1,20 +1,20 @@
 import httpStatus from 'http-status'
-import catchAsync from '../../../shared/catchAsync'
 import sendResponse from '../../../shared/sendResponse'
-import { IUserData } from './User.interface'
-import { UserDataService } from './User.service'
+import { IAdmin } from './Admin.interface'
+import { AdminService } from './Admin.service'
+import catchAsync from '../../../shared/catchAsync'
 import { Request, Response } from 'express'
 import { pick } from '../../../shared/pick'
+import { AdminFilterableFields } from './Admin.constant'
 import { paginationFields } from '../../../constance/pagination'
-import { userDataFilterableFields } from './User.constant'
 
-const createUserDataController = catchAsync(
+const createAdminController = catchAsync(
   async (req: Request, res: Response) => {
-    const { ...userData } = req.body
-    const result = await UserDataService.createUserDataService(userData)
+    const { ...Adminpayload } = req.body
+    const result = await AdminService.createAdminService(Adminpayload)
 
     if (result.success === false) {
-      return sendResponse<IUserData>(res, {
+      return sendResponse<IAdmin>(res, {
         statusCode: httpStatus.BAD_REQUEST,
         success: false,
         message: result.message,
@@ -22,7 +22,7 @@ const createUserDataController = catchAsync(
       })
     }
 
-    sendResponse<IUserData>(res, {
+    sendResponse<IAdmin>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'User Created Successfully!',
@@ -32,15 +32,15 @@ const createUserDataController = catchAsync(
 )
 
 const getAllUserController = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, userDataFilterableFields)
+  const filters = pick(req.query, AdminFilterableFields)
   const paginationOptions = pick(req.query, paginationFields)
 
-  const result = await UserDataService.getAllUserDataService(
+  const result = await AdminService.getAllAdminService(
     filters,
     paginationOptions
   )
 
-  sendResponse<IUserData[]>(res, {
+  sendResponse<IAdmin[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User Booking Data retrieved successfully !',
@@ -49,12 +49,12 @@ const getAllUserController = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
-const getSingleUserDataController = catchAsync(
+const getSingleAdminController = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id
-    const result = await UserDataService.getSingleUserDataService(id)
+    const result = await AdminService.getSingleAdminService(id)
 
-    sendResponse<IUserData>(res, {
+    sendResponse<IAdmin>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Single User Data retrieved successfully !',
@@ -63,14 +63,14 @@ const getSingleUserDataController = catchAsync(
   }
 )
 
-const updateUserDataController = catchAsync(
+const updateAdminController = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id
     const updateData = req.body
 
-    const result = await UserDataService.updateUserData(id, updateData)
+    const result = await AdminService.updateAdmin(id, updateData)
 
-    sendResponse<IUserData>(res, {
+    sendResponse<IAdmin>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Single User Data updated successfully !',
@@ -78,13 +78,13 @@ const updateUserDataController = catchAsync(
     })
   }
 )
-const deleteSingleUserDataController = catchAsync(
+const deleteSingleAdminController = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id
 
-    const result = await UserDataService.deleteUserData(id)
+    const result = await AdminService.deleteAdmin(id)
 
-    sendResponse<IUserData>(res, {
+    sendResponse<IAdmin>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Single Semesters deleted successfully !',
@@ -93,9 +93,8 @@ const deleteSingleUserDataController = catchAsync(
   }
 )
 
-const isAdminController = async (req: Request, res: Response) => {
+const isSuperAdminController = async (req: Request, res: Response) => {
   try {
-    // Assuming the user's email is sent as a query parameter in the request
     const userEmail = req.params.email
 
     if (!userEmail) {
@@ -104,33 +103,30 @@ const isAdminController = async (req: Request, res: Response) => {
         .json({ success: false, message: 'User email not provided.' })
     }
 
-    // Check if the email from req.decoded matches the provided email
-    if (req.decoded.email as string !== userEmail) {
-      return res.json({ isAdmin: false })
+    if ((req.decoded.email as string) !== userEmail) {
+      return res.json({ isSuperAdmin: false })
     }
 
-    // Call the verifyAdmin function to check if the user is an admin or not
-    const adminCheckResult = await UserDataService.verifyAdmin(userEmail)
+    const adminCheckResult = await AdminService.verifySuperAdmin(userEmail)
 
-    // Send the appropriate response based on the result
-    if (adminCheckResult.success && adminCheckResult.isAdmin) {
-      return res.json({ isAdmin: true })
+    if (adminCheckResult.success && adminCheckResult.isSuperAdmin) {
+      return res.json({ isSuperAdmin: true })
     } else {
-      return res.json({ isAdmin: false })
+      return res.json({ isSuperAdmin: false })
     }
   } catch (error) {
-    console.error('Error in isAdminController:', error)
+    console.error('Error in isSuperAdminController:', error)
     return res
       .status(500)
       .json({ success: false, message: 'Internal server error.' })
   }
 }
 
-export const UserDataController = {
-  createUserDataController,
+export const AdminController = {
+  createAdminController,
   getAllUserController,
-  getSingleUserDataController,
-  updateUserDataController,
-  deleteSingleUserDataController,
-  isAdminController,
+  getSingleAdminController,
+  updateAdminController,
+  deleteSingleAdminController,
+  isSuperAdminController,
 }

@@ -1,15 +1,15 @@
 import { Model } from 'mongoose'
 
 export type ITurfBookingData = {
-  address: string
+  address?: string
   email: string
   name: string
-  phone: string
+  phone?: string
   selectedDate: string
   slot: string
   turf: string
   price: string
- 
+  photo: string
 }
 
 export type ITurfBookingDataFilters = {

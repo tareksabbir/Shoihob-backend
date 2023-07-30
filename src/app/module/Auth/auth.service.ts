@@ -1,0 +1,39 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import jwt from 'jsonwebtoken'
+import config from '../../../config'
+import { NextFunction, Request, Response } from 'express'
+
+declare module 'express' {
+  interface Request {
+    decoded?: any // Change 'any' to the actual type of the decoded object if possible
+  }
+}
+
+export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
+  const authorization = req.headers.authorization
+
+  if (!authorization) {
+    return res.status(401).send({ error: true, message: 'unauthorized access' })
+  }
+  const token = authorization.split(' ')[1]
+  jwt.verify(token, config.tokens as string, (err, decoded) => {
+    if (err) {
+      return res.status(403).send({ error: true, message: 'Forbidden access' })
+    }
+    req.decoded = decoded
+    next()
+  })
+}
+
+
+const jwtService = (req: Request, res: Response) => {
+  const user = req.body
+  const token = jwt.sign(user, config.tokens as string, { expiresIn: '1h' })
+  res.send({ token })
+}
+
+export const tokenJWTService = {
+  jwtService,
+}

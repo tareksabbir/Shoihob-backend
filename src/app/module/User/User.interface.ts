@@ -1,9 +1,9 @@
 import { Model } from 'mongoose'
 
 export type IUserData = {
-  age?: number
   name: string
   email: string
+  age?: number
   phone?: string
   address?: string
   role?: string
@@ -14,7 +14,8 @@ export type IUserData = {
   about?: string
   facebook?: string
   insta?: string
-  blood?: string
+  gender?: 'male' | 'female';
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
 }
 
 export type IUserDataFilters = {

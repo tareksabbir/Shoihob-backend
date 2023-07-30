@@ -16,6 +16,14 @@ const userDataSchema = new Schema<IUserData>(
     insta: { type: String },
     point: { type: Number },
     payment: { type: Number },
+    gender: {
+      type: String,
+      enum: ['male', 'female'],
+    },
+  bloodGroup: {
+      type: String,
+      enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    },
    
   },
   {

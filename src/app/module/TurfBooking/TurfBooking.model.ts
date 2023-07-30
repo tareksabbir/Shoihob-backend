@@ -6,11 +6,12 @@ export const turfBookingSchema: Schema<ITurfBookingData> = new Schema(
     address: { type: String },
     email: { type: String, required: true },
     name: { type: String, required: true },
-    phone: { type: String, required: true },
+    phone: { type: String},
     selectedDate: { type: String, required: true },
     slot: { type: String, required: true },
     turf: { type: String, required: true },
     price: { type: String, required: true },
+    photo: { type: String, required: true },
   },
   {
     timestamps: true,

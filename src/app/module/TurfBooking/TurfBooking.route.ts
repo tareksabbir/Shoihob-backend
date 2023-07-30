@@ -9,7 +9,15 @@ router.delete(
   '/:id',
   TurfBookingDataController.deleteSingleTurfBookingDataController
 )
-router.get('/:id', TurfBookingDataController.getSingleTurfBookingDataController)
-router.get('/', TurfBookingDataController.getAllTurfBookingDataController)
+router.get(
+  '/:id',
+
+  TurfBookingDataController.getSingleTurfBookingDataController
+)
+router.get(
+  '/',
+
+  TurfBookingDataController.getAllTurfBookingDataController
+)
 
 export const TurfBookingRoutes = router

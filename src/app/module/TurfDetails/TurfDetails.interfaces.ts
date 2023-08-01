@@ -2,14 +2,21 @@ import { Model } from 'mongoose'
 
 export type ITurfData = {
   turf_name: string
+  email:string
+  ownerId:string
+  ownerPhone:string
   address: string
-  about: string
-  rules: string
+  city:string
+  price: string
+  person?: string[]
+  slots?: string[]
   logo: string
   cover: string
-  price: string
-  person: number[]
-  slots: string[]
+  about: string
+  rules: string
+  
+  
+  
 }
 export type ITurfDataFilters = {
   searchTerm?: string

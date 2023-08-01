@@ -10,6 +10,7 @@ export type ITurfBookingData = {
   turf: string
   price: string
   photo: string
+  ownerId:string
 }
 
 export type ITurfBookingDataFilters = {

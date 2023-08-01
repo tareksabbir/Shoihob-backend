@@ -101,10 +101,28 @@ const deleteSingleTurfBookingDataController = catchAsync(
   }
 )
 
+
+const getSingleUserTurfBookingDataController = catchAsync(
+  async (req: Request, res: Response) => {
+    const email = req.params.email
+    const result = await TurfBookingDataService.singleUserTurfBookingDataService(
+      email
+    )
+
+    sendResponse<ITurfBookingData[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Single User Turf Booking Data retrieved successfully !',
+      data: result,
+    })
+  }
+)
+
 export const TurfBookingDataController = {
   createTurfBookingDataController,
   getAllTurfBookingDataController,
   getSingleTurfBookingDataController,
   updateTurfBookingDataController,
   deleteSingleTurfBookingDataController,
+  getSingleUserTurfBookingDataController
 }

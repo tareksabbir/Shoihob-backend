@@ -4,6 +4,8 @@
 import jwt from 'jsonwebtoken'
 import config from '../../../config'
 import { NextFunction, Request, Response } from 'express'
+import { UserData } from '../User/User.model'
+import { Admin } from '../Adimin/Admin.model'
 
 declare module 'express' {
   interface Request {
@@ -26,6 +28,26 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
     next()
   })
 }
+
+export const verifyAdmins = async(req: Request, res: Response, next: NextFunction) =>{
+  const email= req.decoded.email;
+  const query ={email:email}
+  const user = await UserData.findOne(query)
+  if(user?.role !== "admin"){
+    return res.status(403).send({error:true,message:'forbidden message'})
+  }
+  next()
+}
+export const verifySuperAdmins = async(req: Request, res: Response, next: NextFunction) =>{
+  const email= req.decoded.email;
+  const query ={email:email}
+  const user = await Admin.findOne(query)
+  if(user?.role !== "superAdmin"){
+    return res.status(403).send({error:true,message:'forbidden message'})
+  }
+  next()
+}
+
 
 
 const jwtService = (req: Request, res: Response) => {

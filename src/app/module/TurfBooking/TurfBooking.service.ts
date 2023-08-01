@@ -107,10 +107,18 @@ const deleteTurfBookingData = async (
   return result
 }
 
+const singleUserTurfBookingDataService = async (
+  email: string
+): Promise<ITurfBookingData[]> => {
+  const result = await TurfBookingData.find({email})
+  return result
+}
+
 export const TurfBookingDataService = {
   createTurfBookingDataService,
   getAllTurfBookingDataService,
   getSingleTurfBookingDataService,
   updateTurfBookingData,
   deleteTurfBookingData,
+  singleUserTurfBookingDataService
 }

@@ -1,5 +1,6 @@
 import express from 'express'
 import { TurfBookingDataController } from './TurfBooking.controller'
+import { verifyJWT } from '../Auth/auth.service'
 
 const router = express.Router()
 
@@ -13,6 +14,11 @@ router.get(
   '/:id',
 
   TurfBookingDataController.getSingleTurfBookingDataController
+)
+router.get(
+  '/email/:email',
+  verifyJWT,
+  TurfBookingDataController.getSingleUserTurfBookingDataController
 )
 router.get(
   '/',

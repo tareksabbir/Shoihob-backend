@@ -51,17 +51,18 @@ const getAllUserController = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleUserDataController = catchAsync(
   async (req: Request, res: Response) => {
-    const id = req.params.id
-    const result = await UserDataService.getSingleUserDataService(id)
+    const email = req.params.email;
+    const result = await UserDataService.getSingleUserDataService(email);
 
     sendResponse<IUserData>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Single User Data retrieved successfully !',
+      message: 'Single User Data retrieved successfully!',
       data: result,
-    })
+    });
   }
 )
+
 
 const updateUserDataController = catchAsync(
   async (req: Request, res: Response) => {

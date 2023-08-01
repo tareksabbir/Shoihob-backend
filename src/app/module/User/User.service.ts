@@ -76,10 +76,10 @@ const getAllUserDataService = async (
 }
 
 const getSingleUserDataService = async (
-  id: string
+  email: string
 ): Promise<IUserData | null> => {
-  const result = await UserData.findById(id)
-  return result
+  const result = await UserData.findOne({ email });
+  return result;
 }
 
 const updateUserData = async (

@@ -8,9 +8,13 @@ export type ITurfBookingData = {
   selectedDate: string
   slot: string
   turf: string
-  price: string
+  price: number
   photo: string
-  ownerId:string
+  ownerId: string
+  city?: string
+  person?: number
+  transactionId: string
+  paid: boolean
 }
 
 export type ITurfBookingDataFilters = {

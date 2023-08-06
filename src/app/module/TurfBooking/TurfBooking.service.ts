@@ -9,24 +9,22 @@ import {
 import { TurfBookingData } from './TurfBooking.model'
 import { turfBookingDataSearchableFields } from './TurfBooking.constant'
 
-
 const createTurfBookingDataService = async (
-  payload: ITurfBookingData 
+  payload: ITurfBookingData
 ): Promise<{ success: boolean; message?: string; data?: ITurfBookingData }> => {
   const query = {
     selectedDate: payload.selectedDate,
     email: payload.email,
-  };
-  const alreadyBooked = await TurfBookingData.find(query);
+  }
+  const alreadyBooked = await TurfBookingData.find(query)
   if (alreadyBooked.length) {
-    const message = `You already have a booking on ${payload.selectedDate}`;
-    return { success: false, message };
+    const message = `You already have a booking on ${payload.selectedDate}`
+    return { success: false, message }
   }
 
-  const result = await TurfBookingData.create(payload);
-  return { success: true, data: result };
-};
-
+  const result = await TurfBookingData.create(payload)
+  return { success: true, data: result }
+}
 
 const getAllTurfBookingDataService = async (
   filters: ITurfBookingDataFilters,
@@ -90,16 +88,6 @@ const getSingleTurfBookingDataService = async (
   return result
 }
 
-const updateTurfBookingData = async (
-  id: string,
-  payload: Partial<ITurfBookingData>
-): Promise<ITurfBookingData | null> => {
-  const result = await TurfBookingData.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
-  })
-  return result
-}
-
 const deleteTurfBookingData = async (
   id: string
 ): Promise<ITurfBookingData | null> => {
@@ -110,7 +98,14 @@ const deleteTurfBookingData = async (
 const singleUserTurfBookingDataService = async (
   email: string
 ): Promise<ITurfBookingData[]> => {
-  const result = await TurfBookingData.find({email})
+  const result = await TurfBookingData.find({ email })
+  return result
+}
+
+const getPaymentDetailsService = async (
+  transactionId: string
+): Promise<ITurfBookingData[] | null> => {
+  const result = await TurfBookingData.find({transactionId})
   return result
 }
 
@@ -118,7 +113,8 @@ export const TurfBookingDataService = {
   createTurfBookingDataService,
   getAllTurfBookingDataService,
   getSingleTurfBookingDataService,
-  updateTurfBookingData,
+  //updateTurfBookingData,
   deleteTurfBookingData,
-  singleUserTurfBookingDataService
+  singleUserTurfBookingDataService,
+  getPaymentDetailsService,
 }

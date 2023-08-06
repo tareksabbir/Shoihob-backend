@@ -5,6 +5,10 @@ import routes from './app/routes';
 import httpStatus from 'http-status';
 const app: Application = express();
 
+// const store_id = process.env.Store_ID
+// const store_passwd = process.env.Store_Password
+// const is_live = false 
+
 app.use(cors());
 // parser
 app.use(express.json());
@@ -24,6 +28,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       },
     ],
   });
+
+ 
+
+
   next();
 });
 

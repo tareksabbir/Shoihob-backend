@@ -1,22 +1,24 @@
 export const turfBookingDataSearchableFields = [
   'email',
+  'ownerId',
   'address',
   'selectedDate',
   'slot',
-  'trxId',
   'turf',
   'name',
   'phone',
+  'transactionId',
 ]
 
 export const turfBookingDataFilterableFields = [
   'searchTerm',
+  'ownerId',
   'email',
   'address',
   'selectedDate',
   'slot',
-  'trxId',
   'turf',
   'name',
   'phone',
+  'transactionId',
 ]

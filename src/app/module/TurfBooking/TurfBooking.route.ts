@@ -4,17 +4,26 @@ import { verifyJWT } from '../Auth/auth.service'
 
 const router = express.Router()
 
-router.post('/', TurfBookingDataController.createTurfBookingDataController)
 router.patch('/:id', TurfBookingDataController.updateTurfBookingDataController)
+router.post('/', TurfBookingDataController.createTurfBookingDataController)
+router.post('/success', TurfBookingDataController.paymentConfirmation)
+
 router.delete(
   '/:id',
   TurfBookingDataController.deleteSingleTurfBookingDataController
 )
+
 router.get(
   '/:id',
 
   TurfBookingDataController.getSingleTurfBookingDataController
 )
+router.get(
+  '/payment/details/:transactionId',
+
+  TurfBookingDataController.getPaymentDetailsController
+)
+
 router.get(
   '/email/:email',
   verifyJWT,

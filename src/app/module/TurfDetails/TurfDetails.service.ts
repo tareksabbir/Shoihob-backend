@@ -9,7 +9,7 @@ import { SortOrder } from 'mongoose'
 const createTurfDataService = async (
   payload: ITurfData
 ): Promise<ITurfData> => {
-  const result = await TurfData.create(payload)
+  const result = (await TurfData.create(payload)).populate('ownerId')
   return result
 }
 
@@ -38,7 +38,7 @@ const getData = async (date: string): Promise<ITurfData[] | null> => {
         slots: 1,
         logo: 1,
         price: 1,
-        ownerId:1,
+        ownerId: 1,
         booked: {
           $map: {
             input: '$booked',
@@ -56,7 +56,7 @@ const getData = async (date: string): Promise<ITurfData[] | null> => {
           $setDifference: ['$slots', '$booked'],
         },
         price: 1,
-        ownerId:1,
+        ownerId: 1,
       },
     },
   ])
@@ -102,6 +102,7 @@ const getAllTurfDataService = async (
     andConditions.length > 0 ? { $and: andConditions } : {}
 
   const result = await TurfData.find(whereConditions)
+    .populate('ownerId')
     .sort(sortConditions)
     .skip(skip)
     .limit(limit)
@@ -121,7 +122,7 @@ const getAllTurfDataService = async (
 const getSingleTurfDataService = async (
   id: string
 ): Promise<ITurfData | null> => {
-  const result = await TurfData.findById(id)
+  const result = await TurfData.findById(id).populate('ownerId')
   return result
 }
 
@@ -131,7 +132,7 @@ const updateTurfData = async (
 ): Promise<ITurfData | null> => {
   const result = await TurfData.findOneAndUpdate({ _id: id }, payload, {
     new: true,
-  })
+  }).populate('ownerId')
   return result
 }
 
@@ -139,8 +140,6 @@ const deleteTurfData = async (id: string): Promise<ITurfData | null> => {
   const result = await TurfData.findByIdAndDelete(id)
   return result
 }
-
-
 
 export const TurfDataService = {
   createTurfDataService,

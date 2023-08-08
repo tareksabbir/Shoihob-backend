@@ -15,11 +15,13 @@ router.get(
   // verifyAdmins,
   UserDataController.isAdminController
 )
+
 router.get(
   '/',
   verifyJWT,
   // verifyAdmins,
   UserDataController.getAllUserController
 )
+
 
 export const UserRoutes = router

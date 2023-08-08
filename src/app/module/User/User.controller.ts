@@ -127,6 +127,8 @@ const isAdminController = async (req: Request, res: Response) => {
   }
 }
 
+
+
 export const UserDataController = {
   createUserDataController,
   getAllUserController,
@@ -134,4 +136,5 @@ export const UserDataController = {
   updateUserDataController,
   deleteSingleUserDataController,
   isAdminController,
+  
 }

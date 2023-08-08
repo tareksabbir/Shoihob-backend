@@ -6,12 +6,12 @@ const turfDataSchema = new Schema<ITurfData>(
   {
     turf_name: { type: String, required: true },
     email: { type: String, required: true },
-    ownerId: { type: String, required: true },
+
     ownerPhone: { type: String, required: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
     price: { type: String, required: true },
-    person: { type: [String],default:["12","14","16"]},
+    person: { type: [String], default: ['12', '14', '16'] },
     slots: {
       type: [String],
       default: [
@@ -29,6 +29,7 @@ const turfDataSchema = new Schema<ITurfData>(
     cover: { type: String, required: true },
     about: { type: String, required: true },
     rules: { type: String, required: true },
+    ownerId: { type: Schema.Types.ObjectId, ref: 'Admin', required: true },
   },
   {
     timestamps: true,

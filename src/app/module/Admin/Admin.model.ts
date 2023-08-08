@@ -27,7 +27,7 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
     facebook: { type: String },
     insta: { type: String },
 
-    turfDetails: { type: Schema.Types.ObjectId, ref: 'ManagementDepartment' },
+  
   },
   {
     timestamps: true,

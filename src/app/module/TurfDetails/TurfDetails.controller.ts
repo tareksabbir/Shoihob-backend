@@ -10,10 +10,8 @@ import { turfDataFilterableFields } from './TurfDetails.constant'
 
 const createTurfDataController = catchAsync(
   async (req: Request, res: Response) => {
-    const { ...academicSemesterData } = req.body
-    const result = await TurfDataService.createTurfDataService(
-      academicSemesterData
-    )
+    const { ...turfData } = req.body
+    const result = await TurfDataService.createTurfDataService(turfData)
 
     sendResponse<ITurfData>(res, {
       statusCode: httpStatus.OK,

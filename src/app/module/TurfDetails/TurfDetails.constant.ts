@@ -1,4 +1,9 @@
-export const turfDataSearchableFields = ['turf_name', 'address', 'price']
+export const turfDataSearchableFields = [
+  'turf_name',
+  'address',
+  'price',
+  'email',
+]
 
 export const turfDataFilterableFields = [
   'searchTerm',

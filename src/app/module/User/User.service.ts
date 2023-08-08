@@ -98,6 +98,7 @@ const deleteUserData = async (id: string): Promise<IUserData | null> => {
 }
 
 
+
 const verifyAdmin = async (
   payload: string
 ): Promise<{ success: boolean; isAdmin?: boolean; message?: string }> => {
@@ -119,5 +120,6 @@ export const UserDataService = {
   getSingleUserDataService,
   updateUserData,
   deleteUserData,
-  verifyAdmin
+  verifyAdmin,
+
 }

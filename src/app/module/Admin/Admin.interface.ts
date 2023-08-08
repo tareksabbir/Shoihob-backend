@@ -1,5 +1,4 @@
 import { Model, Types } from 'mongoose'
-import { ITurfData } from '../TurfDetails/TurfDetails.interfaces'
 
 export type IAdmin = {
   id: string
@@ -19,7 +18,7 @@ export type IAdmin = {
   about?: string
   facebook?: string
   insta?: string
-  turfDetails?: Types.ObjectId | ITurfData
+  
  
 }
 

@@ -29,7 +29,7 @@ const turfDataSchema = new Schema<ITurfData>(
     cover: { type: String, required: true },
     about: { type: String, required: true },
     rules: { type: String, required: true },
-    ownerId: { type: Schema.Types.ObjectId, ref: 'Admin', required: true },
+    ownerId: { type: Schema.Types.ObjectId, ref: 'Admin' },
   },
   {
     timestamps: true,

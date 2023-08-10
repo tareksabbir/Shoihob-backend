@@ -16,6 +16,7 @@ export type IUserData = {
   insta?: string
   gender?: 'male' | 'female';
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+ 
 }
 
 export type IUserDataFilters = {

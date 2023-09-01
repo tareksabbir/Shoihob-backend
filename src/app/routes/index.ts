@@ -8,6 +8,7 @@ import { adminStats } from '../module/SuperAdminStats/starts.route'
 import { ownerStatsRoutes } from '../module/OwnerStats/OwnerStats.route'
 import { TournamentRoutes } from '../module/TournamentDetails/Tournament.route'
 import { TournamentRegistrationRoutes } from '../module/TournamentRegistration/TournamentRegistration.route'
+import { PayHistoryRoutes } from '../module/PayHistory/PayHistory.route'
 
 const router = express.Router()
 
@@ -15,6 +16,10 @@ const moduleRoutes = [
   {
     path: '/turf',
     route: TurfRoutes,
+  },
+  {
+    path: '/history',
+    route: PayHistoryRoutes,
   },
   {
     path: '/bookings',
@@ -44,6 +49,7 @@ const moduleRoutes = [
     path: '/tournamentRegistration',
     route: TournamentRegistrationRoutes,
   },
+  
 
   {
     path: '/jwt',

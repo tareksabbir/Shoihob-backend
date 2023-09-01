@@ -16,11 +16,11 @@ export default class OwnerDataService {
       {
         $match: {
           ownerId,
-          paid: true, // Only include documents where 'paid' is true
+          paid: true, 
         },
       },
       {
-        $count: 'paidTrueCount', // Count the number of documents where 'paid' is true
+        $count: 'paidTrueCount', 
       },
     ])
 
@@ -54,7 +54,7 @@ export default class OwnerDataService {
       {
         $match: {
           ownerId,
-          paid: true, // Only include documents where 'paid' is true
+          paid: true, 
         },
       },
       {
@@ -76,18 +76,18 @@ export default class OwnerDataService {
       {
         $match: {
           ownerId,
-          paid: true, // Only include paid bookings
+          paid: true, 
         },
       },
       {
         $group: {
-          _id: '$userId', // Group by userId to get unique users
+          _id: '$userId', 
         },
       },
       {
         $group: {
           _id: null,
-          uniqueUserCount: { $sum: 1 }, // Count the number of unique users
+          uniqueUserCount: { $sum: 1 }, 
         },
       },
     ])

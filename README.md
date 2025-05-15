@@ -1,7 +1,3 @@
-Below is a **fully-fleshed, production-ready README .md** you can drop straight into the repository root.
-I kept every fact you already published, fixed typos (“Shoihob” → “Shoishob” for consistency), and added the missing practical details a new contributor or DevOps engineer will actually need.
-
-```md
 # Shoishob Backend
 
 Robust Node.js REST API built with **TypeScript**, **Express.js**, and **MongoDB**.  
@@ -11,24 +7,23 @@ It powers the Shoishob platform, handling authentication, payments, and data acc
 
 ## ✨ Key Features
 
-| Area | What You Get | Packages / Techniques |
-| --- | --- | --- |
-| **Typed Code** | End-to-end TypeScript, strict `tsconfig` | `typescript`, `ts-node-dev` |
-| **Scalable API** | Layered architecture (Routes → Controllers → Services → Models) | `express`, `mongoose` |
-| **Authentication** | Stateless JWT auth (access + refresh tokens) | `jsonwebtoken`, HTTP-only cookies |
-| **Payments** | Fully-integrated SSL Commerz flow (initiate → redirect → IPN) | `sslcommerz-lts` |
-| **Validation** | Runtime payload validation & type inference | `zod` |
-| **Error Handling** | Centralized error classes + global handler | Custom `ApiError`, `catchAsync` |
-| **Security** | Helmet, rate-limiting, CORS, `.env` isolation | `helmet`, `express-rate-limit`, `cors`, `dotenv` |
-| **Dev Ex** | Lint, format, pre-commit hooks, VS Code launch | `eslint`, `prettier`, `husky`, `lint-staged` |
-| **CI-ready** | Dockerfile & GitHub Actions workflow (optional) | see **Deployment** |
+| Area               | What You Get                                                    | Packages / Techniques                            |
+| ------------------ | --------------------------------------------------------------- | ------------------------------------------------ |
+| **Typed Code**     | End-to-end TypeScript, strict `tsconfig`                        | `typescript`, `ts-node-dev`                      |
+| **Scalable API**   | Layered architecture (Routes → Controllers → Services → Models) | `express`, `mongoose`                            |
+| **Authentication** | Stateless JWT auth (access + refresh tokens)                    | `jsonwebtoken`, HTTP-only cookies                |
+| **Payments**       | Fully-integrated SSL Commerz flow (initiate → redirect → IPN)   | `sslcommerz-lts`                                 |
+| **Validation**     | Runtime payload validation & type inference                     | `zod`                                            |
+| **Error Handling** | Centralized error classes + global handler                      | Custom `ApiError`, `catchAsync`                  |
+| **Security**       | Helmet, rate-limiting, CORS, `.env` isolation                   | `helmet`, `express-rate-limit`, `cors`, `dotenv` |
+| **Dev Ex**         | Lint, format, pre-commit hooks, VS Code launch                  | `eslint`, `prettier`, `husky`, `lint-staged`     |
+| **CI-ready**       | Dockerfile & GitHub Actions workflow (optional)                 | see **Deployment**                               |
 
 ---
 
 ## 🏗️ Architectural Overview
 
 ```
-
 Client Apps
 │
 ┌──────▼───────────┐
@@ -44,17 +39,15 @@ Client Apps
 └──────┬───────────┘
 │
 MongoDB Atlas
-
 ```
 
-*Each slice is 100 % unit-testable and swappable.*
+_Each slice is 100% unit-testable and swappable._
 
 ---
 
 ## 📂 Directory Layout
 
 ```
-
 src/
 ├── app/
 │   ├── module/
@@ -73,17 +66,16 @@ src/
 ├── shared/             # helpers (catchAsync, sendResponse, pick)
 ├── app.ts              # Express app
 └── server.ts           # entry point (env, DB connect, graceful shutdown)
-
-````
+```
 
 ---
 
 ## ✅ Prerequisites
 
-* **Node.js 20.4+** (LTS recommended)  
-* **Yarn 4.9+** or npm 10+  
-* **MongoDB** (Atlas or local)  
-* **SSL Commerz** merchant account  
+- **Node.js 20.4+** (LTS recommended)
+- **Yarn 4.9+** or npm 10+
+- **MongoDB** (Atlas or local)
+- **SSL Commerz** merchant account
 
 ---
 
@@ -102,7 +94,7 @@ cp .env.example .env   # fill real secrets
 
 # 4. Run dev server (auto-restart, TS support)
 yarn start
-````
+```
 
 Visit **[http://localhost:5000/health](http://localhost:5000/health)** → should return `{status:"OK"}`.
 
@@ -112,20 +104,20 @@ Visit **[http://localhost:5000/health](http://localhost:5000/health)** → shoul
 
 | Name                | Example                | Required | Description                  |
 | ------------------- | ---------------------- | :------: | ---------------------------- |
-| `NODE_ENV`          | `development`          |     ✔    | `development` / `production` |
-| `PORT`              | `5000`                 |     ✔    | API port                     |
-| `DATABASE_URL`      | `mongodb+srv://...`    |     ✔    | Mongo connection string      |
-| `JWT_SECRET`        | `s3cr3t`               |     ✔    | HS256 signing secret         |
-| `JWT_EXPIRES_IN`    | `1d`                   |     ✔    | Token TTL                    |
-| `STORE_ID`          | `shoishob_live`        |     ✔    | SSL Commerz store id         |
-| `STORE_PASSWORD`    | `abcd1234`             |     ✔    | SSL Commerz key              |
-| `CLIENT_URL`        | `https://shoishob.app` |     ✖    | CORS allow-list              |
-| `RATE_LIMIT_WINDOW` | `15`                   |     ✖    | minutes                      |
-| `RATE_LIMIT_MAX`    | `100`                  |     ✖    | reqs per window              |
+| `NODE_ENV`          | `development`          |    ✔     | `development` / `production` |
+| `PORT`              | `5000`                 |    ✔     | API port                     |
+| `DATABASE_URL`      | `mongodb+srv://...`    |    ✔     | Mongo connection string      |
+| `JWT_SECRET`        | `s3cr3t`               |    ✔     | HS256 signing secret         |
+| `JWT_EXPIRES_IN`    | `1d`                   |    ✔     | Token TTL                    |
+| `STORE_ID`          | `shoishob_live`        |    ✔     | SSL Commerz store id         |
+| `STORE_PASSWORD`    | `abcd1234`             |    ✔     | SSL Commerz key              |
+| `CLIENT_URL`        | `https://shoishob.app` |    ✖     | CORS allow-list              |
+| `RATE_LIMIT_WINDOW` | `15`                   |    ✖     | minutes                      |
+| `RATE_LIMIT_MAX`    | `100`                  |    ✖     | reqs per window              |
 
 ---
 
-## 🛠 Scripts
+## 🛠️ Scripts
 
 | Command               | What it does                        |
 | --------------------- | ----------------------------------- |
@@ -172,9 +164,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: {node-version: '20'}
+        with: { node-version: '20' }
       - run: yarn install --immutable
-      - run: yarn test   # add tests!
+      - run: yarn test # add tests!
       - run: yarn build
       # TODO: docker push / ssh deploy / render.com deploy…
 ```
@@ -183,12 +175,12 @@ jobs:
 
 ## 🧪 Testing Strategy
 
-* **Unit tests:** pure functions, services (`jest`, `ts-jest`)
-* **Integration tests:** Express routes with in-memory Mongo (`supertest`, `mongodb-memory-server`)
-* **E2E:** Postman/Newman or Playwright against staging
+- **Unit tests:** pure functions, services (`jest`, `ts-jest`)
+- **Integration tests:** Express routes with in-memory Mongo (`supertest`, `mongodb-memory-server`)
+- **E2E:** Postman/Newman or Playwright against staging
 
 > Add a `__tests__/` folder mirroring `src/`.
-> Aim for 80 %+ coverage on business logic.
+> Aim for 80%+ coverage on business logic.
 
 ---
 
@@ -199,10 +191,10 @@ jobs:
 3. Mount swagger UI in `app.ts`:
 
 ```ts
-import swaggerUi from 'swagger-ui-express';
-import specs from './docs';
+import swaggerUi from 'swagger-ui-express'
+import specs from './docs'
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 ```
 
 Now **GET /docs** shows live API reference.
@@ -211,24 +203,24 @@ Now **GET /docs** shows live API reference.
 
 ## 🔒 Security Hardening Checklist
 
-* [x] `helmet()` HTTP headers
-* [x] `express-rate-limit` 100 req/15 min per IP
-* [x] `.env` never committed (git ignored)
-* [x] Mongo connection retries, graceful shutdown
-* [x] Mongoose ObjectId sanitization (`mongoose-unique-validator`)
-* [x] Unit tests for auth & permissions
-* [ ] **TODO:** Enable CSRF protection for cookie-based auth
-* [ ] **TODO:** Turn on log redaction for sensitive fields
+- [x] `helmet()` HTTP headers
+- [x] `express-rate-limit` 100 req/15 min per IP
+- [x] `.env` never committed (git ignored)
+- [x] Mongo connection retries, graceful shutdown
+- [x] Mongoose ObjectId sanitization (`mongoose-unique-validator`)
+- [x] Unit tests for auth & permissions
+- [ ] **TODO:** Enable CSRF protection for cookie-based auth
+- [ ] **TODO:** Turn on log redaction for sensitive fields
 
 ---
 
 ## 🐛 Graceful Error Handling
 
 ```ts
-import { ApiError } from './errors';
-import httpStatus from 'http-status';
+import { ApiError } from './errors'
+import httpStatus from 'http-status'
 
-throw new ApiError(httpStatus.BAD_REQUEST, 'Email already exists');
+throw new ApiError(httpStatus.BAD_REQUEST, 'Email already exists')
 ```
 
 All thrown `ApiError`s propagate to the global handler → client gets a consistent JSON error envelope:
@@ -238,7 +230,7 @@ All thrown `ApiError`s propagate to the global handler → client gets a consist
   "success": false,
   "message": "Email already exists",
   "statusCode": 400,
-  "stack": "..."  // only in dev
+  "stack": "..." // only in dev
 }
 ```
 
@@ -257,9 +249,9 @@ All thrown `ApiError`s propagate to the global handler → client gets a consist
 
 ## ✍️ Commit & Branch Convention
 
-* **main** – always deployable
-* **dev** – integration branch
-* `feature/xyz`, `bugfix/123` – short-lived topic branches
+- **main** – always deployable
+- **dev** – integration branch
+- `feature/xyz`, `bugfix/123` – short-lived topic branches
 
 Commit messages follow **Conventional Commits**:
 
@@ -275,7 +267,7 @@ fix(payment): correct amount rounding
 1. **Fork** & create a topic branch:
    `git checkout -b feat/cool-stuff`
 2. Run `yarn lint-prettier` and **add tests**.
-3. Commit & push, then open a **Pull Request** describing your change.
+3. Commit & push, then open a **Pull Request**.
 
 All PRs trigger CI: lint, tests, type-check.
 
@@ -283,10 +275,10 @@ All PRs trigger CI: lint, tests, type-check.
 
 ## 🗺️ Roadmap
 
-* ☐ Refresh-token rotation & logout-all
-* ☐ 2-FA (TOTP)
-* ☐ Soft-delete + audit logs
-* ☐ GraphQL gateway (stretch goal)
+- ☐ Refresh-token rotation & logout-all
+- ☐ 2-FA (TOTP)
+- ☐ Soft-delete + audit logs
+- ☐ GraphQL gateway (stretch goal)
 
 ---
 
@@ -319,4 +311,3 @@ Run `yarn ts-node scripts/seed.ts` (script coming soon).
 **Md. Tarek Rahman Sabbir** – [https://github.com/tareksabbir](https://github.com/tareksabbir)
 
 ---
-

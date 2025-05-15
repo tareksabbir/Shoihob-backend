@@ -29,6 +29,120 @@ Shoihob-backend follows a modular architecture with distinct components that han
 
 ![System Architecture](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob1.png)
 
+### Architectural Layers
+
+The system follows a layered architecture pattern that promotes separation of concerns and maintainability.
+
+![Architectural Layers](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob8.png)
+
+### 📡 API Layer
+
+This layer is responsible for handling HTTP requests and routing them to appropriate business logic.
+
+- **Routes**: Define API endpoints and connect them to corresponding controllers.
+- **Controllers**: Manage the request/response lifecycle and delegate core operations to services.
+- **Middleware**: Intercepts and processes requests before they reach the controller (e.g., authentication, input validation, error handling).
+
+### API Structure
+
+The API is organized as a RESTful service with versioned endpoints. All routes are prefixed with /api/v1 and are organized by functionality. The Express router maps incoming requests to the appropriate controller functions.
+
+![API Structure](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob2.png)
+
+### 🧠 Business Logic Layer
+
+This layer contains **Service Classes** that encapsulate the core logic of the application. It:
+
+- Implements domain-specific rules and use cases.
+- Coordinates actions involving multiple models or external services.
+- Keeps controllers lean and focused on the request flow.
+
+### 🗃️ Data Access Layer
+
+Responsible for communicating with the database using **Mongoose**. It includes:
+
+- **Schemas & Models**: Define data structures and constraints for MongoDB collections.
+- **CRUD Operations**: Abstracts direct database operations and enforces a consistent access pattern.
+
+### 🧩 Core Modules
+
+The **Shoihob-backend** is structured into several key modules, each responsible for a distinct business function. This modular approach ensures better scalability, maintainability, and separation of concerns.
+
+| Module                      | Path                      | Description                                                                   |
+| --------------------------- | ------------------------- | ----------------------------------------------------------------------------- |
+| **User**                    | `/user`                   | Handles user registration, profile management, and role-based access control. |
+| **Auth**                    | `/jwt`                    | Manages authentication using JWT tokens.                                      |
+| **Turf**                    | `/turf`                   | Manages sports field listings, details, and maintenance.                      |
+| **Booking**                 | `/bookings`               | Handles turf reservation, scheduling, and payment processing.                 |
+| **Payment History**         | `/history`                | Stores and manages transaction records and payment history.                   |
+| **Tournament**              | `/tournament-details`     | Enables creation and management of tournaments.                               |
+| **Tournament Registration** | `/tournamentRegistration` | Facilitates user registration and participation in tournaments.               |
+| **Admin Stats**             | `/stats`                  | Provides analytics and system insights for administrators.                    |
+| **Owner Stats**             | `/ownerStats`             | Delivers usage analytics specifically for turf owners.                        |
+
+![Core Modules](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob9.png)
+
+| Module                             | Description                                                                                     |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| **User Module**                    | Manages user accounts, profiles, and role-based access control (`user`, `admin`, `superAdmin`). |
+| **Authentication Module**          | Implements secure JWT-based authentication and authorization.                                   |
+| **Turf Details Module**            | Handles sports venue data including availability, pricing, and location.                        |
+| **Turf Booking Module**            | Manages turf reservations, slot selection, payment processing, and confirmation.                |
+| **Payment History Module**         | Tracks all transaction records, including bookings and tournament registrations.                |
+| **Tournament Module**              | Manages tournament creation, scheduling, and turf associations.                                 |
+| **Tournament Registration Module** | Handles user registration for tournaments, with integrated payment processing.                  |
+| **Statistics Module**              | Provides analytical dashboards and metrics for admins and turf owners.                          |
+
+> 📁 **Source Root**: `src/app/routes/index.ts`
+
+#### 🧱 Module Structure
+
+Each module adheres to a standardized internal structure, which improves code readability, collaboration, and scalability:
+
+```
+src/
+ └── app/
+      └── [module-name]/
+           ├── controllers/     # Handles HTTP request/response logic
+           ├── services/        # Contains core business logic
+           ├── models/          # Mongoose schemas and data access definitions
+           ├── routes/          # Defines REST API endpoints
+           └── validators/      # Joi or Zod schemas for request validation (if any)
+```
+
+### Request Flow
+
+The following diagram illustrates how a typical request flows through the system:
+
+![Request Flow](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob10.png)
+
+## Example: Booking a Turf
+
+![Example: Booking a Turf](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob11.png)
+
+### Authentication and Authorization
+
+The system implements JWT (JSON Web Token) based authentication and role-based authorization.
+
+![Authentication and Authorization](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob12.png)
+
+### Data Models
+
+The system uses MongoDB as its database and Mongoose for object data modeling. The following diagram illustrates the key data models and their relationships:
+
+![Data Models](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob13.png)
+
+### Error Handling
+
+The system implements a global error handling mechanism to ensure consistent error responses across all API endpoints.
+
+![ Error Handling](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob14.png)
+
+### Integration with External Services
+
+The system integrates with external services, particularly for payment processing:
+
+![ Integration with External Services](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoihob15.png)
 
 ---
 

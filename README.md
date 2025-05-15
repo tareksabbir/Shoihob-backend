@@ -27,7 +27,7 @@ It powers the Shoishob platform, handling authentication, payments, and data acc
 
 Shoihob-backend follows a modular architecture with distinct components that handle specific business domains. The system is built using Node.js with Express framework and TypeScript, connecting to a MongoDB database for data persistence and integrating with SSLCommerz for payment processing.
 
-![ System Architecture](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoishob1.png)
+![System Architecture](./readme_images/shoishob1.png)
 
 ---
 

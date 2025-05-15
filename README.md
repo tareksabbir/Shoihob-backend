@@ -23,25 +23,11 @@ It powers the Shoishob platform, handling authentication, payments, and data acc
 
 ## 🏗️ Architectural Overview
 
-```
-Client Apps
-│
-┌──────▼───────────┐
-│  API Layer       │  (routes & controllers – HTTP ↔ DTO)
-└──────┬───────────┘
-│
-┌──────▼───────────┐
-│  Service Layer   │  (pure biz logic, no Express)
-└──────┬───────────┘
-│
-┌──────▼───────────┐
-│  Data Layer      │  (Mongoose models & queries)
-└──────┬───────────┘
-│
-MongoDB Atlas
-```
+### System Architecture
 
-_Each slice is 100% unit-testable and swappable._
+Shoihob-backend follows a modular architecture with distinct components that handle specific business domains. The system is built using Node.js with Express framework and TypeScript, connecting to a MongoDB database for data persistence and integrating with SSLCommerz for payment processing.
+
+![ System Architecture](https://raw.githubusercontent.com/tareksabbir/Shoihob-backend/main/readme_images/shoishob1.png)
 
 ---
 

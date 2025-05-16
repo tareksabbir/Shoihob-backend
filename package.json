@@ -5,6 +5,7 @@
   "description": "",
   "main": "src/sever.ts",
   "scripts": {
+    "deploy": "vercel",
     "start": "ts-node-dev --respawn --transpile-only src/server.ts",
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "lint:fix": "eslint . --fix.",
@@ -26,7 +27,8 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vercel": "^41.7.8"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.2",

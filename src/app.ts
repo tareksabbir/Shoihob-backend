@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
@@ -18,7 +19,7 @@ app.use('/api/v1', routes);
 // global error handler
 app.use(globalErrorHandler);
 // handle not found route
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response) => {
   res.status(httpStatus.NOT_FOUND).json({
     success: false,
     message: 'Route Not Found',
@@ -29,7 +30,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       },
     ],
   });
-  next();
+  // next();
 });
 
 

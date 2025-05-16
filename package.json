@@ -6,7 +6,10 @@
   "main": "src/sever.ts",
   "scripts": {
     "deploy": "vercel",
+    "build": "tsc",
+    "vercel-build": "tsc",
     "start": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start:prod": "node dist/server.js",
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "lint:fix": "eslint . --fix.",
     "prettier:fix": "prettier --write .",

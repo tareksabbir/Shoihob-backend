@@ -85,10 +85,11 @@ const postTournamentRegistrationDataController = catchAsync(
       total_amount: bookingPayment?.price,
       currency: 'BDT',
       tran_id: transactionId,
-      success_url: `http://localhost:5000/api/v1/tournamentRegistration/success?transactionId=${transactionId}`,
-      fail_url: 'http://localhost:5000/api/v1//tournamentRegistration/fail',
-      cancel_url: 'http://localhost:5000/api/v1//tournamentRegistration/cancel',
-      ipn_url: 'http://localhost:5000/api/v1//tournamentRegistration/ipn',
+      success_url: `http://localhost:5000 /api/v1/tournamentRegistration/success?transactionId=${transactionId}`,
+      fail_url: 'http://localhost:5000 /api/v1//tournamentRegistration/fail',
+      cancel_url:
+        'http://localhost:5000 /api/v1//tournamentRegistration/cancel',
+      ipn_url: 'http://localhost:5000 /api/v1//tournamentRegistration/ipn',
       shipping_method: 'Booking Payment Confirmation',
       product_name: 'Shoishob Zone Slot Booking.',
       product_category: 'Booking',
@@ -112,27 +113,23 @@ const postTournamentRegistrationDataController = catchAsync(
       ship_country: 'Bangladesh',
     }
 
-
     const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
     sslcz.init(data).then((apiResponse: { GatewayPageURL: any }) => {
       const GatewayPageURL = apiResponse.GatewayPageURL
       TournamentRegistration.create({
         ...updateData,
-        price:bookingPayment?.price,
+        price: bookingPayment?.price,
         transactionId: transactionId,
         paid: false,
-        
       })
       res.send({ url: GatewayPageURL })
-
-     
     })
   }
 )
 
 const paymentConfirmation = async (req: Request, res: Response) => {
   const { transactionId } = req.query
-  
+
   const result = await TournamentRegistration.findOneAndUpdate(
     { transactionId },
     { paid: true, paidAt: new Date() }
@@ -140,7 +137,7 @@ const paymentConfirmation = async (req: Request, res: Response) => {
 
   if (result?.isModified) {
     res.redirect(
-      `http://localhost:5173/dashboard/tournament/payment/success?transactionId=${transactionId}`
+      `http://localhost:5000 /dashboard/tournament/payment/success?transactionId=${transactionId}`
     )
   } else {
     res.status(404).send('Document not found or no changes made.')

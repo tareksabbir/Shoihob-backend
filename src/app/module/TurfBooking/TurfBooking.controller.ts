@@ -90,10 +90,10 @@ const updateTurfBookingDataController = catchAsync(
       total_amount: bookingPayment?.price,
       currency: 'BDT',
       tran_id: transactionId,
-      success_url: `http://localhost:5000/api/v1/bookings/success?transactionId=${transactionId}`,
-      fail_url: 'http://localhost:5000/api/v1/bookings/fail',
-      cancel_url: 'http://localhost:5000/api/v1/bookings/cancel',
-      ipn_url: 'http://localhost:5000/api/v1/bookings/ipn',
+      success_url: `http://localhost:5000 /api/v1/bookings/success?transactionId=${transactionId}`,
+      fail_url: 'http://localhost:5000 /api/v1/bookings/fail',
+      cancel_url: 'http://localhost:5000 /api/v1/bookings/cancel',
+      ipn_url: 'http://localhost:5000 /api/v1/bookings/ipn',
       shipping_method: 'Booking Payment Confirmation',
       product_name: 'Shoishob Zone Slot Booking.',
       product_category: 'Booking',
@@ -151,11 +151,12 @@ const paymentConfirmation = async (req: Request, res: Response) => {
   )
 
   if (result?.isModified) {
-    res.redirect(`http://localhost:5173/dashboard/payment/success?transactionId=${transactionId}`);
+    res.redirect(
+      `http://localhost:5000 /dashboard/payment/success?transactionId=${transactionId}`
+    )
   } else {
-    res.status(404).send('Document not found or no changes made.');
+    res.status(404).send('Document not found or no changes made.')
   }
-
 }
 
 const deleteSingleTurfBookingDataController = catchAsync(
@@ -191,8 +192,9 @@ const getSingleUserTurfBookingDataController = catchAsync(
 const getPaymentDetailsController = catchAsync(
   async (req: Request, res: Response) => {
     const transactionId = req.params.transactionId
-    const result =
-      await TurfBookingDataService.getPaymentDetailsService(transactionId)
+    const result = await TurfBookingDataService.getPaymentDetailsService(
+      transactionId
+    )
 
     sendResponse<ITurfBookingData[]>(res, {
       statusCode: httpStatus.OK,
@@ -211,5 +213,5 @@ export const TurfBookingDataController = {
   deleteSingleTurfBookingDataController,
   getSingleUserTurfBookingDataController,
   paymentConfirmation,
-  getPaymentDetailsController
+  getPaymentDetailsController,
 }

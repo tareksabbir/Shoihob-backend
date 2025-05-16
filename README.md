@@ -197,7 +197,7 @@ cp .env.example .env   # fill real secrets
 yarn start
 ```
 
-Visit **[http://localhost:5000/health](http://localhost:5000/health)** → should return `{status:"OK"}`.
+Visit **[http://localhost:5000 /health](http://localhost:5000 /health)** → should return `{status:"OK"}`.
 
 ---
 

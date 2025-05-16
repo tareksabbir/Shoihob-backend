@@ -10,12 +10,20 @@ const app: Application = express()
 // const store_passwd = process.env.Store_Password
 // const is_live = false
 
-app.use(
-  cors({
-    origin: ['https://your-frontend-domain.com'],
-    credentials: true,
-  })
-)
+
+
+app.use(cors({
+  origin: true, // Allow all origins in development
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+  ],
+}))
 
 // parser
 app.use(express.json())

@@ -1,67 +1,32 @@
+// PayHistory.service.ts - Fixed service methods with proper error handling
 import { paginationHelper } from '../../../helpers/paginationHelper'
 import { IPaginationOptions } from '../../../interfaces/pagination'
 import { IGenericResponse } from '../../../interfaces/common'
-
 import { SortOrder } from 'mongoose'
 import { IPayHistory, IPayHistoryFilters } from './PayHistory.interface'
 import { PayHistory } from './PayHistory.model'
 import { PayHistorySearchableFields } from './PayHistory.constant'
 
+// Helper function to extract error message safely
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.message
+  }
+  if (typeof error === 'string') {
+    return error
+  }
+  return 'An unknown error occurred'
+}
+
 const createPayHistoryService = async (
   payload: IPayHistory
 ): Promise<IPayHistory> => {
-  const result = await PayHistory.create(payload)
-  return result
-}
-
-const getData = async (date: string): Promise<IPayHistory[] | null> => {
-  const result = await PayHistory.aggregate([
-    {
-      $lookup: {
-        from: 'turfbookingdatas',
-        localField: 'turf_name',
-        foreignField: 'turf',
-        pipeline: [
-          {
-            $match: {
-              $expr: {
-                $eq: ['$selectedDate', date],
-              },
-            },
-          },
-        ],
-        as: 'booked',
-      },
-    },
-    {
-      $project: {
-        turf_name: 1,
-        slots: 1,
-        logo: 1,
-        price: 1,
-        ownerId: 1,
-        booked: {
-          $map: {
-            input: '$booked',
-            as: 'book',
-            in: '$$book.slot',
-          },
-        },
-      },
-    },
-    {
-      $project: {
-        turf_name: 1,
-        logo: 1,
-        slots: {
-          $setDifference: ['$slots', '$booked'],
-        },
-        price: 1,
-        ownerId: 1,
-      },
-    },
-  ])
-  return result
+  try {
+    const result = await PayHistory.create(payload)
+    return result
+  } catch (error) {
+    throw new Error(`Failed to create pay history: ${getErrorMessage(error)}`)
+  }
 }
 
 const getAllPayHistoryService = async (
@@ -99,54 +64,84 @@ const getAllPayHistoryService = async (
   if (sortBy && sortOrder) {
     sortConditions[sortBy] = sortOrder
   }
+
   const whereConditions =
     andConditions.length > 0 ? { $and: andConditions } : {}
 
-  const result = await PayHistory.find(whereConditions)
+  try {
+    const result = await PayHistory.find(whereConditions)
+      .sort(sortConditions)
+      .skip(skip)
+      .limit(limit)
 
-    .sort(sortConditions)
-    .skip(skip)
-    .limit(limit)
+    // Fix: Count documents with the same conditions
+    const total = await PayHistory.countDocuments(whereConditions)
 
-  const total = await PayHistory.countDocuments()
-
-  return {
-    meta: {
-      page,
-      limit,
-      total,
-    },
-    data: result,
+    return {
+      meta: {
+        page,
+        limit,
+        total,
+      },
+      data: result,
+    }
+  } catch (error) {
+    throw new Error(`Failed to get pay history: ${getErrorMessage(error)}`)
   }
 }
 
 const getSinglePayHistoryService = async (
   id: string
 ): Promise<IPayHistory | null> => {
-  const result = await PayHistory.findById(id)
-  return result
+  try {
+    const result = await PayHistory.findById(id)
+    return result
+  } catch (error) {
+    throw new Error(`Failed to get pay history: ${getErrorMessage(error)}`)
+  }
 }
 
 const updatePayHistory = async (
   id: string,
   payload: Partial<IPayHistory>
 ): Promise<IPayHistory | null> => {
-  const result = await PayHistory.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
-  })
-  return result
+  try {
+    const result = await PayHistory.findOneAndUpdate(
+      { _id: id }, 
+      payload, 
+      {
+        new: true,
+        runValidators: true, // Ensure validation runs on update
+      }
+    )
+    return result
+  } catch (error) {
+    throw new Error(`Failed to update pay history: ${getErrorMessage(error)}`)
+  }
 }
 
 const deletePayHistory = async (id: string): Promise<IPayHistory | null> => {
-  const result = await PayHistory.findByIdAndDelete(id)
-  return result
-}
-const singleUserPayHistoryDataService = async (
-    email: string
-  ): Promise<IPayHistory[]> => {
-    const result = await PayHistory.find({ email })
+  try {
+    const result = await PayHistory.findByIdAndDelete(id)
+    if (!result) {
+      throw new Error('Pay history record not found')
+    }
     return result
+  } catch (error) {
+    throw new Error(`Failed to delete pay history: ${getErrorMessage(error)}`)
   }
+}
+
+const singleUserPayHistoryDataService = async (
+  email: string
+): Promise<IPayHistory[]> => {
+  try {
+    const result = await PayHistory.find({ email }).sort({ createdAt: -1 })
+    return result
+  } catch (error) {
+    throw new Error(`Failed to get user pay history: ${getErrorMessage(error)}`)
+  }
+}
 
 export const PayHistoryService = {
   createPayHistoryService,
@@ -154,6 +149,5 @@ export const PayHistoryService = {
   getSinglePayHistoryService,
   updatePayHistory,
   deletePayHistory,
-  getData,
   singleUserPayHistoryDataService
 }

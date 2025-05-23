@@ -1,34 +1,21 @@
+// Fixed: Align searchable fields with actual PayHistory interface
 export const PayHistorySearchableFields = [
-    'age',
-    'name',
-    'email',
-    'phone',
-    'address',
-    'role',
-    'point',
-    'payment',
-    'photo',
-    'cover',
-    'about',
-    'facebook',
-    'insta',
-    'blood',
-  ]
-  
-  export const PayHistoryFilterableFields = [
-    'searchTerm',
-    'age',
-    'name',
-    'email',
-    'phone',
-    'address',
-    'role',
-    'point',
-    'payment',
-    'photo',
-    'cover',
-    'about',
-    'facebook',
-    'insta',
-    'blood',
-  ]
+  'name',
+  'email',
+  'phone',
+  'transactionId',
+  'slots',
+  'date',
+  'turf',
+]
+
+export const PayHistoryFilterableFields = [
+  'searchTerm',
+  'name',
+  'email',
+  'phone',
+  'transactionId',
+  'slots',
+  'date',
+  'turf',
+]

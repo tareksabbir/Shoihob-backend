@@ -85,11 +85,11 @@ const postTournamentRegistrationDataController = catchAsync(
       total_amount: bookingPayment?.price,
       currency: 'BDT',
       tran_id: transactionId,
-      success_url: `http://localhost:5000 /api/v1/tournamentRegistration/success?transactionId=${transactionId}`,
-      fail_url: 'http://localhost:5000 /api/v1//tournamentRegistration/fail',
+      success_url: `https://shoihob-backend.vercel.app/api/v1/tournamentRegistration/success?transactionId=${transactionId}`,
+      fail_url: 'https://shoihob-backend.vercel.app/api/v1//tournamentRegistration/fail',
       cancel_url:
-        'http://localhost:5000 /api/v1//tournamentRegistration/cancel',
-      ipn_url: 'http://localhost:5000 /api/v1//tournamentRegistration/ipn',
+        'https://shoihob-backend.vercel.app/api/v1//tournamentRegistration/cancel',
+      ipn_url: 'https://shoihob-backend.vercel.app/api/v1//tournamentRegistration/ipn',
       shipping_method: 'Booking Payment Confirmation',
       product_name: 'Shoishob Zone Slot Booking.',
       product_category: 'Booking',
@@ -137,7 +137,7 @@ const paymentConfirmation = async (req: Request, res: Response) => {
 
   if (result?.isModified) {
     res.redirect(
-      `http://localhost:5000 /dashboard/tournament/payment/success?transactionId=${transactionId}`
+      `https://project-shoishob.vercel.app/dashboard/tournament/payment/success?transactionId=${transactionId}`
     )
   } else {
     res.status(404).send('Document not found or no changes made.')

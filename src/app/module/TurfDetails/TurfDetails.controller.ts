@@ -98,6 +98,22 @@ const deleteSingleTurfDataController = catchAsync(
   }
 )
 
+
+const getTurfsByOwnerController = catchAsync(
+  async (req: Request, res: Response) => {
+    const ownerId = req.params.ownerId
+    const result = await TurfDataService.getTurfsByOwnerService(ownerId)
+
+    sendResponse<ITurfData[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Owner Turfs retrieved successfully !',
+      data: result,
+    })
+  }
+)
+
+
 export const TurfDataController = {
   createTurfDataController,
   getAllTurfDataController,
@@ -105,4 +121,5 @@ export const TurfDataController = {
   updateTurfDataController,
   deleteSingleTurfDataController,
   getTurfData,
+  getTurfsByOwnerController, 
 }

@@ -24,15 +24,3 @@ export type ITournamentDataFilters = {
 
 export type TournamentDataModel = Model<ITournamentData, object>
 
-
-
-
-
-//               registration_start:data.registration_start,
-//               registration_end:data.registration_end,
-
-
-
-
-//               
-//               

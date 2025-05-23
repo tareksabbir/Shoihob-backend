@@ -141,6 +141,15 @@ const deleteTurfData = async (id: string): Promise<ITurfData | null> => {
   return result
 }
 
+const getTurfsByOwnerService = async (
+  ownerId: string
+): Promise<ITurfData[]> => {
+  const result = await TurfData.find({
+    ownerId: ownerId,
+  }).populate('ownerId')
+  return result
+}
+
 export const TurfDataService = {
   createTurfDataService,
   getAllTurfDataService,
@@ -148,4 +157,5 @@ export const TurfDataService = {
   updateTurfData,
   deleteTurfData,
   getData,
+  getTurfsByOwnerService,
 }

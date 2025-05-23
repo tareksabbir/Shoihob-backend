@@ -108,11 +108,18 @@ const verifySuperAdmin = async (
   }
 };
 
+const getAdminByEmail = async (email: string): Promise<IAdmin | null> => {
+  const admin = await Admin.findOne({ email });
+  return admin;
+};
+
+
 export const AdminService = {
   createAdminService,
   getAllAdminService,
   getSingleAdminService,
   updateAdmin,
   deleteAdmin,
-  verifySuperAdmin
+  verifySuperAdmin,
+  getAdminByEmail
 }

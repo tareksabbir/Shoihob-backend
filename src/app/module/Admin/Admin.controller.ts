@@ -122,6 +122,31 @@ const isSuperAdminController = async (req: Request, res: Response) => {
   }
 }
 
+const getAdminByEmailController = catchAsync(
+  async (req: Request, res: Response) => {
+    const { email } = req.params;
+
+    const admin = await AdminService.getAdminByEmail(email);
+
+    if (!admin) {
+      return sendResponse<IAdmin>(res, {
+        statusCode: httpStatus.NOT_FOUND,
+        success: false,
+        message: 'Admin not found',
+        data: null,
+      });
+    }
+
+    sendResponse<IAdmin>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Admin fetched successfully by email',
+      data: admin,
+    });
+  }
+);
+
+
 export const AdminController = {
   createAdminController,
   getAllUserController,
@@ -129,4 +154,5 @@ export const AdminController = {
   updateAdminController,
   deleteSingleAdminController,
   isSuperAdminController,
+  getAdminByEmailController
 }

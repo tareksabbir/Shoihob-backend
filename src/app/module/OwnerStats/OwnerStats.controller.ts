@@ -9,6 +9,7 @@ import OwnerDataService from './OwnerStats.service'
 export const ownerStatsController = catchAsync(
   async (req: Request, res: Response) => {
     const ownerId = req.params.id // Get ownerId from URL parameters
+    console.log(ownerId)
     const paidBookingCount = await OwnerDataService.getPaidTrueCountForOwner(
       ownerId
     )
